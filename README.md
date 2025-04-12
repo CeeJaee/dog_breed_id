@@ -1,4 +1,4 @@
-# dog_breed_id# Dog Breed Classifier CNN
+# Dog Breed Classifier CNN
 
 A convolutional neural network (CNN) that classifies dog breeds from images.
 
