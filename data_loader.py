@@ -4,6 +4,7 @@ from config import TRAIN_DIR, VAL_DIR, TEST_DIR, IMAGE_SIZE, BATCH_SIZE
 
 def load_datasets():
     # loads training, validation, and test datasets to be able to be fed into model
+    # TODO: train set
     train_dataset = image_dataset_from_directory(
 
     )
