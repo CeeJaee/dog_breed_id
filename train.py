@@ -12,9 +12,9 @@ def create_model():
 
     '''
     model.compile(
-        optimizer=
-        loss=
-        metrics=
+        optimizer = keras.optimizers.RMSprop(LEARNING_RATE),
+        loss = "categorical_crossentropy",
+        metrics= ["accuracy"]
     )
     '''
     return model
@@ -26,12 +26,16 @@ def train():
 
     # TODO: need callbacks
     callbacks_list = [
-
+        keras.callbacks.ModelCheckpoint(
+            filepath = MODEL_SAVE_PATH
+            save_best_only = True
+            monitor = "val_loss"
+        )
     ]
 
     # TODO: Train the model
     history = model.fit(
-
+        
     )
 
     return model
