@@ -6,13 +6,24 @@ def load_datasets():
     # loads training, validation, and test datasets to be able to be fed into model
     # TODO: train set
     train_dataset = image_dataset_from_directory(
-
+        TRAIN_DIR,
+        image_size=IMAGE_SIZE,
+        batch_size=BATCH_SIZE,
     )
 
     # TODO: validation set
-
+    val_dataset = image_dataset_from_directory(
+        VAL_DIR,
+        image_size=IMAGE_SIZE,
+        batch_size=BATCH_SIZE
+    )
 
     # TODO: test set
+    test_dataset = image_dataset_from_directory(
+        TEST_DIR,
+        image_size=IMAGE_SIZE,
+        batch_size=BATCH_SIZE
+    )
 
     return train_dataset, val_dataset, test_dataset
 
