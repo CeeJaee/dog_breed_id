@@ -21,14 +21,14 @@ def create_model():
 
 def train():
     # load datasets
-    train_dataset, val_dataset, _ = load_datasets()
+    train_dataset, val_dataset, test_dataset = load_datasets()
     model = create_model()
 
     # TODO: need callbacks
     callbacks_list = [
         keras.callbacks.ModelCheckpoint(
-            filepath = MODEL_SAVE_PATH
-            save_best_only = True
+            filepath = MODEL_SAVE_PATH,
+            save_best_only = True,
             monitor = "val_loss"
         )
     ]
