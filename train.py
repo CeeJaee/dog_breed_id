@@ -30,12 +30,19 @@ def train():
             filepath = MODEL_SAVE_PATH,
             save_best_only = True,
             monitor = "val_loss"
+        ),
+        keras.callbacks.EarlyStopping(
+            monitor = "val_accuracy",
+            patience = 2
         )
     ]
 
     # TODO: Train the model
     history = model.fit(
-        
+        train_dataset,
+        epochs = EPOCHS,
+        validation_data = val_dataset,
+        callbacks = callbacks_list
     )
 
     return model
