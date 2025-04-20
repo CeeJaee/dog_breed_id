@@ -7,9 +7,9 @@ VAL_DIR = os.path.join(DATA_DIR, "valid")
 TEST_DIR = os.path.join(DATA_DIR, "test")
 
 # TODO: Model dimension sizes
-IMAGE_SIZE = 
-BATCH_SIZE = 
-EPOCHS = 
+IMAGE_SIZE = (224, 224)
+BATCH_SIZE = 32
+EPOCHS = 30
 NUM_CLASSES = 
 
 # training config (compilation/fitting)
