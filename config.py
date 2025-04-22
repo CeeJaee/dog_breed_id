@@ -10,7 +10,7 @@ TEST_DIR = os.path.join(DATA_DIR, "test")
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
 EPOCHS = 30
-NUM_CLASSES = 
+NUM_CLASSES = 70
 
 # training config (compilation/fitting)
 LEARNING_RATE = 0.001
