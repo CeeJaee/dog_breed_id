@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras import layers, models, optimizers, callbacks
 from data_loader import load_datasets
+from utils import plot_training_curves
 from config import (IMAGE_SIZE, NUM_CLASSES, EPOCHS, LEARNING_RATE, MODEL_SAVE_PATH)
 
 # helper function for train()
@@ -95,6 +96,9 @@ def train():
         validation_data = val_dataset,
         callbacks = callbacks_list
     )
+
+    # Plot training history
+    plot_training_curves(history)
 
     return model
 
