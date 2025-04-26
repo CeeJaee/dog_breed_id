@@ -9,21 +9,29 @@ def load_datasets():
         TRAIN_DIR,
         image_size=IMAGE_SIZE,
         batch_size=BATCH_SIZE,
+        label_mode="categorical"
     )
 
     # TODO: validation set
     val_dataset = image_dataset_from_directory(
         VAL_DIR,
         image_size=IMAGE_SIZE,
-        batch_size=BATCH_SIZE
+        batch_size=BATCH_SIZE,
+        label_mode="categorical"
     )
 
     # TODO: test set
     test_dataset = image_dataset_from_directory(
         TEST_DIR,
         image_size=IMAGE_SIZE,
-        batch_size=BATCH_SIZE
+        batch_size=BATCH_SIZE,
+        label_mode="categorical"
     )
+
+    # help data throughput when training
+    train_dataset = train_dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
+    val_dataset = val_dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
+    test_dataset = test_dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
 
     return train_dataset, val_dataset, test_dataset
 
