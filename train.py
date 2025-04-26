@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras import layers, models, optimizers, callbacks
+from tf.keras import layers, models, optimizers, callbacks
 from data_loader import load_datasets
 from config import (IMAGE_SIZE, NUM_CLASSES, EPOCHS, LEARNING_RATE, MODEL_SAVE_PATH)
 
@@ -9,14 +9,36 @@ def create_model():
 
     #TODO: define layers of the model here
 
+    #---basic model architecture---#
+    inputs = tf.keras.Input(shape=(IMAGE_SIZE[0], IMAGE_SIZE[1], 3))
 
-    '''
+    x = layers.Rescaling(1./255)(inputs)
+
+    x = layers.Conv2D(32, 3, activation="relu")(x)
+    x = layers.MaxPooling2D()(x)
+    x = layers.Conv2D(64, 3, activation="relu")(x)
+    x = layers.MaxPooling2D()(x)
+    x = layers.Conv2D(128, 3, activation="relu")(x)
+    x = layers.MaxPooling2D()(x)
+    x = layers.Conv2D(256, 3, activation="relu")(x)
+    x = layers.MaxPooling2D()(x)
+
+    x = layers.Flatten()(x)
+    x = layers.Dropout(0.5)(x)
+    x = layers.Dense(512, activation="relu")(x)
+    outputs = layers.Dense(NUM_CLASSES, activation="softmax")
+
+    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+
+    #---end basic model architecture---#
+
+    
     model.compile(
-        optimizer = keras.optimizers.RMSprop(LEARNING_RATE),
+        optimizer = optimizers.RMSprop(LEARNING_RATE),
         loss = "categorical_crossentropy",
-        metrics= ["accuracy"]
+        metrics= ["accuracy", tf.keras.metrics.TopKCategoricalAccuracy(k=5, name="top5_accuracy")]
     )
-    '''
+    
     return model
 
 def train():
