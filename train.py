@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tf.keras import layers, models, optimizers, callbacks
+from tensorflow.keras import layers, models, optimizers, callbacks
 from data_loader import load_datasets
 from config import (IMAGE_SIZE, NUM_CLASSES, EPOCHS, LEARNING_RATE, MODEL_SAVE_PATH)
 
@@ -7,11 +7,10 @@ from config import (IMAGE_SIZE, NUM_CLASSES, EPOCHS, LEARNING_RATE, MODEL_SAVE_P
 def create_model():
     # define cnn architecture
 
-    #TODO: define layers of the model here
-
     #---basic model architecture---#
     inputs = tf.keras.Input(shape=(IMAGE_SIZE[0], IMAGE_SIZE[1], 3))
 
+    # image preprocessing
     x = layers.Rescaling(1./255)(inputs)
 
     x = layers.Conv2D(32, 3, activation="relu")(x)
@@ -23,15 +22,36 @@ def create_model():
     x = layers.Conv2D(256, 3, activation="relu")(x)
     x = layers.MaxPooling2D()(x)
 
+    # classification, use softmax for multi-class
     x = layers.Flatten()(x)
     x = layers.Dropout(0.5)(x)
     x = layers.Dense(512, activation="relu")(x)
     outputs = layers.Dense(NUM_CLASSES, activation="softmax")
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
-
     #---end basic model architecture---#
 
+    # TODO: create more optimal architecture here
+    #---advanced model architecture---#
+    inputs = 
+
+    # Data augmentation layers
+    '''
+    note: the textbook creates an array to store all the augmentations.
+          For our purposes, we don't need to do that, just create the
+          augmentation layers as is.
+    example: 
+    inputs = ...
+
+    # Data augmentation layers
+    x = layers.RandomFlip("horizontal")
+    x = ...rest of the augmentation layers
+
+    x = ...rest of model architecture
+
+    '''
+
+    #---end advanced model architecture---#
     
     model.compile(
         optimizer = optimizers.RMSprop(LEARNING_RATE),
@@ -51,11 +71,20 @@ def train():
         keras.callbacks.ModelCheckpoint(
             filepath = MODEL_SAVE_PATH,
             save_best_only = True,
-            monitor = "val_loss"
+            monitor = "val_accuracy",
+            mode = "max"
         ),
         keras.callbacks.EarlyStopping(
             monitor = "val_accuracy",
-            patience = 2
+            patience = 5,
+            restore_best_weights = True
+        ),
+        # reduces learning rate to get out of a local minimum and into a global min
+        keras.callbacks.ReduceLROnPlateau(
+            monitor = "val_loss",
+            factor = 0.2,
+            patience = 5,
+            min_lr = 1e-6
         )
     ]
 
