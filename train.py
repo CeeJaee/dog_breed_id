@@ -27,14 +27,14 @@ def create_model():
     x = layers.Flatten()(x)
     x = layers.Dropout(0.5)(x)
     x = layers.Dense(512, activation="relu")(x)
-    outputs = layers.Dense(NUM_CLASSES, activation="softmax")
+    outputs = layers.Dense(NUM_CLASSES, activation="softmax")(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
     #---end basic model architecture---#
 
     # TODO: create more optimal architecture here
     #---advanced model architecture---#
-    inputs = 
+    #inputs = 
 
     # Data augmentation layers
     '''
@@ -69,19 +69,19 @@ def train():
 
     # TODO: need callbacks
     callbacks_list = [
-        keras.callbacks.ModelCheckpoint(
+        tf.keras.callbacks.ModelCheckpoint(
             filepath = MODEL_SAVE_PATH,
             save_best_only = True,
             monitor = "val_accuracy",
             mode = "max"
         ),
-        keras.callbacks.EarlyStopping(
+        tf.keras.callbacks.EarlyStopping(
             monitor = "val_accuracy",
             patience = 5,
             restore_best_weights = True
         ),
         # reduces learning rate to get out of a local minimum and into a global min
-        keras.callbacks.ReduceLROnPlateau(
+        tf.keras.callbacks.ReduceLROnPlateau(
             monitor = "val_loss",
             factor = 0.2,
             patience = 5,
