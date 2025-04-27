@@ -35,7 +35,6 @@ def create_model():
     '''
     #---end basic model architecture---#
 
-    # TODO: create more optimal architecture here
    
     #---advanced model architecture---#
   
@@ -51,7 +50,6 @@ def create_model():
     # image preprocessing
     x = layers.Rescaling(1./255)(x)
     x = layers.Conv2D(32, 3, padding="same")(x)
-
 
     x = layers.BatchNormalization()(x)
     x = layers.Activation("relu")(x)
@@ -81,24 +79,6 @@ def create_model():
     outputs = layers.Dense(NUM_CLASSES, activation="softmax")(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
-
-    
-
-    # Data augmentation layers
-    '''
-    note: the textbook creates an array to store all the augmentations.
-          For our purposes, we don't need to do that, just create the
-          augmentation layers as is.
-    example: 
-    inputs = ...
-
-    # Data augmentation layers
-    x = layers.RandomFlip("horizontal")
-    x = ...rest of the augmentation layers
-
-    x = ...rest of model architecture
-
-    '''
 
     #---end advanced model architecture---#
     
