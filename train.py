@@ -9,6 +9,7 @@ def create_model():
     # define cnn architecture
 
     #---basic model architecture---#
+    '''
     inputs = tf.keras.Input(shape=(IMAGE_SIZE[0], IMAGE_SIZE[1], 3))
 
     # image preprocessing
@@ -30,11 +31,58 @@ def create_model():
     outputs = layers.Dense(NUM_CLASSES, activation="softmax")(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
+    
+    '''
     #---end basic model architecture---#
 
     # TODO: create more optimal architecture here
+   
     #---advanced model architecture---#
-    #inputs = 
+  
+    # define cnn architecture
+    inputs = tf.keras.Input(shape=(IMAGE_SIZE[0], IMAGE_SIZE[1], 3))
+
+    # augmentation layers
+    x = layers.RandomFlip("horizontal")(inputs)
+    x = layers.RandomRotation(0.1)(x)
+    x = layers.RandomZoom(0.2)(x)
+    x = layers.RandomContrast(0.1)(x)
+
+    # image preprocessing
+    x = layers.Rescaling(1./255)(x)
+    x = layers.Conv2D(32, 3, padding="same")(x)
+
+
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+    x = layers.MaxPooling2D()(x)
+
+    x = layers.SeparableConv2D(64, 3, padding="same")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+    x = layers.MaxPooling2D()(x)
+
+    x = layers.SeparableConv2D(128, 3, padding="same")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+    x = layers.MaxPooling2D()(x)
+
+    x = layers.SeparableConv2D(256, 3, padding="same")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+    x = layers.MaxPooling2D()(x)
+
+    # classification, use softmax for multi-class
+    x = layers.Flatten()(x)
+    x = layers.Dropout(0.5)(x)
+    x = layers.Dense(512)(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+    outputs = layers.Dense(NUM_CLASSES, activation="softmax")(x)
+
+    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+
+    
 
     # Data augmentation layers
     '''
