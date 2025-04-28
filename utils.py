@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def plot_training_curves(hisotry):
+def plot_training_curves(history):
     # plot the training and validation metrics
     metrics = ["loss", "accuracy", "top5_accuracy"]
 
