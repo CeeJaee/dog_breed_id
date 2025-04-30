@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def plot_training_curves(hisotry):
+def plot_training_curves(history):
     # plot the training and validation metrics
     metrics = ["loss", "accuracy", "top5_accuracy"]
 
@@ -10,7 +10,7 @@ def plot_training_curves(hisotry):
         plt.subplot(1, 3, i + 1)
 
         plt.plot(history.history[metric], label = f"Training {metric}")
-        plt.plot(history.history[f"val){metric}"], label = f"Validation {metric}")
+        plt.plot(history.history[f"val_{metric}"], label = f"Validation {metric}")
 
         plt.title(f"Training and Validation {metric.capitalize()}")
         plt.xlabel("Epochs")
