@@ -17,5 +17,5 @@ def plot_training_curves(history):
         plt.ylabel(metric.capitalize())
         plt.legend()
     
-    plt.tight_layout
+    plt.tight_layout()
     plt.show()
