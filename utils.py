@@ -10,7 +10,7 @@ def plot_training_curves(history):
         plt.subplot(1, 3, i + 1)
 
         plt.plot(history.history[metric], label = f"Training {metric}")
-        plt.plot(history.history[f"val){metric}"], label = f"Validation {metric}")
+        plt.plot(history.history[f"val_{metric}"], label = f"Validation {metric}")
 
         plt.title(f"Training and Validation {metric.capitalize()}")
         plt.xlabel("Epochs")
