@@ -18,3 +18,7 @@ MODEL_SAVE_PATH = os.path.join("models", "dog_breed_classifier.keras")
 
 # if models directory dne
 os.makedirs("models", exist_ok=True)
+
+USE_VGG = True
+VGG_WEIGHTS = "imagenet"
+FREEZE_VGG = True
