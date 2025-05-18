@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Breed Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Dog Breed Classifier</h1>
+        <p>Upload an image of a dog to identify its breed</p>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <button type="submit">Upload and Predict</button>
+        </form>
+        
+        {% if filename %}
+            <div class="results">
+                <h2>Results</h2>
+                <img src="{{ url_for('static', filename='uploads/' + filename) }}" 
+                     alt="Uploaded dog image" class="uploaded-image">
+                
+                <div class="predictions">
+                    <h3>Top 5 Predictions</h3>
+                    {% for breed, prob in predictions %}
+                        <div class="prediction-item">
+                            <div class="prediction-breed">
+                                <span>{{ breed }}</span>
+                                <span class="prediction-percentage">{{ "%.1f"|format(prob * 100) }}%</span>
+                            </div>
+                            <div class="prediction-bar-container">
+                                <div class="prediction-bar" style="width: {{ prob * 100 }}%"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
